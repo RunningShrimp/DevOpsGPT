@@ -17,7 +17,7 @@ bp = Blueprint('agent_ticket', __name__, url_prefix='/agent/ticket')
 @bp.route('/create_from_log', methods=['POST'])
 @json_response
 def create_ticket_from_log():
-    """Create a Jira ticket from log analysis"""
+    """从日志分析创建Jira工单"""
     _ = getI18n("controllers")
     
     requirement_id = request.json.get('requirement_id')
@@ -55,7 +55,7 @@ def create_ticket_from_log():
 @bp.route('/create_from_alert', methods=['POST'])
 @json_response
 def create_ticket_from_alert():
-    """Create a Jira ticket from monitoring alert"""
+    """从监控告警创建Jira工单"""
     _ = getI18n("controllers")
     
     requirement_id = request.json.get('requirement_id')
@@ -93,7 +93,7 @@ def create_ticket_from_alert():
 @bp.route('/create_manual', methods=['POST'])
 @json_response
 def create_ticket_manual():
-    """Create a Jira ticket manually"""
+    """手动创建Jira工单"""
     _ = getI18n("controllers")
     
     requirement_id = request.json.get('requirement_id')
@@ -155,7 +155,7 @@ def create_ticket_manual():
 @bp.route('/tickets', methods=['GET'])
 @json_response
 def get_tickets():
-    """Get tickets by requirement"""
+    """根据需求获取工单"""
     requirement_id = request.args.get('requirement_id', type=int)
     status = request.args.get('status')
     limit = request.args.get('limit', 20, type=int)
@@ -179,7 +179,7 @@ def get_tickets():
 @bp.route('/ticket/<ticket_key>', methods=['GET'])
 @json_response
 def get_ticket(ticket_key):
-    """Get ticket by key"""
+    """根据键值获取工单"""
     ticket = TicketRecord.get_ticket_by_key(ticket_key)
     
     if not ticket:
@@ -194,7 +194,7 @@ def get_ticket(ticket_key):
 @bp.route('/ticket/update_status', methods=['POST'])
 @json_response
 def update_ticket_status():
-    """Update ticket status"""
+    """更新工单状态"""
     _ = getI18n("controllers")
     
     ticket_id = request.json.get('ticket_id')
@@ -220,7 +220,7 @@ def update_ticket_status():
 @bp.route('/ticket/sync_from_jira', methods=['POST'])
 @json_response
 def sync_ticket_from_jira():
-    """Sync ticket status from Jira"""
+    """从Jira同步工单状态"""
     _ = getI18n("controllers")
     
     ticket_key = request.json.get('ticket_key')
@@ -240,7 +240,7 @@ def sync_ticket_from_jira():
 @bp.route('/historical', methods=['GET'])
 @json_response
 def get_historical_tickets():
-    """Get historical tickets for analysis"""
+    """获取历史工单用于分析"""
     service_name = request.args.get('service_name')
     limit = request.args.get('limit', 50, type=int)
     

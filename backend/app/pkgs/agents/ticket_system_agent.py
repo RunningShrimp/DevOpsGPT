@@ -9,7 +9,7 @@ import json
 
 
 class TicketSystemAgent:
-    """Agent for intelligent ticket creation and management"""
+    """用于智能工单创建和管理的代理"""
     
     def __init__(self):
         self.jira = JiraService()
@@ -22,12 +22,12 @@ class TicketSystemAgent:
         Args:
             requirement_id: Requirement ID
             service_name: Name of the service
-            fault_data: Fault or alert data dictionary
-            source_type: Type of source (log_analysis, monitoring_alert, manual)
-            source_id: ID of the source record
+            fault_data: 故障或告警数据字典
+            source_type: 来源类型 (log_analysis, monitoring_alert, manual)
+            source_id: 来源记录的ID
         
         Returns:
-            dict: Ticket creation result
+            dict: 工单创建结果
         """
         # Generate ticket title and description using AI
         ticket_info = self._generate_ticket_content(service_name, fault_data, source_type)
@@ -103,7 +103,7 @@ class TicketSystemAgent:
         Args:
             service_name: Name of the service
             fault_data: Fault or alert data
-            source_type: Type of source
+            source_type: 来源类型
         
         Returns:
             dict: Title and description
@@ -186,10 +186,10 @@ DESCRIPTION: <description here>"""
         
         Args:
             service_name: Name of the service
-            ticket_title: Ticket title to search for
+            ticket_title: 要搜索的工单标题
         
         Returns:
-            list: Similar tickets
+            list: 相似工单
         """
         # Get historical tickets from database
         historical = TicketRecord.get_historical_tickets(service_name=service_name, limit=20)
@@ -217,11 +217,11 @@ DESCRIPTION: <description here>"""
         Generate solution recommendations based on historical data
         
         Args:
-            similar_tickets: List of similar historical tickets
+            similar_tickets: 相似历史工单列表
             fault_data: Current fault data
         
         Returns:
-            list: Recommended solutions
+            list: 推荐的解决方案
         """
         if not similar_tickets:
             return self._generate_generic_recommendations(fault_data)
@@ -313,7 +313,7 @@ Provide 3-5 prioritized, actionable recommendations."""
             similar_tickets: Similar historical tickets
         
         Returns:
-            str: Suggested assignee username or None
+            str: 建议的受理人用户名或None
         """
         # Count assignees from similar tickets
         assignee_counts = {}

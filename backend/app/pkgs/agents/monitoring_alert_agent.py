@@ -7,7 +7,7 @@ import json
 
 
 class MonitoringAlertAgent:
-    """Agent for analyzing monitoring alerts and recommending solutions"""
+    """用于分析监控告警并推荐解决方案的代理"""
     
     def __init__(self):
         self.prometheus = PrometheusService()
@@ -82,10 +82,10 @@ class MonitoringAlertAgent:
         Analyze an alert and recommend solutions using AI
         
         Args:
-            alert_data: Alert data dictionary
+            alert_data: 告警数据字典
         
         Returns:
-            dict: Analysis and recommendations
+            dict: 分析和推荐
         """
         alert_name = alert_data.get('alert_name', 'Unknown')
         metric_name = alert_data.get('metric_name', 'Unknown')
@@ -147,7 +147,7 @@ Be concise and actionable."""
         
         Args:
             metric_name: Name of the metric
-            anomaly_result: Anomaly detection result
+            anomaly_result: 异常检测结果
         
         Returns:
             str: Severity level
@@ -183,10 +183,10 @@ Be concise and actionable."""
         Extract action items from AI analysis
         
         Args:
-            analysis_text: AI-generated analysis text
+            analysis_text: AI生成的分析文本
         
         Returns:
-            list: List of solution steps
+            list: 解决方案步骤列表
         """
         solutions = []
         
@@ -205,7 +205,7 @@ Be concise and actionable."""
         Generate template-based solution as fallback
         
         Args:
-            alert_data: Alert data dictionary
+            alert_data: 告警数据字典
         
         Returns:
             str: Template solution

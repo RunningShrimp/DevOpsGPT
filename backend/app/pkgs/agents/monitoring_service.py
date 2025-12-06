@@ -8,14 +8,14 @@ from datetime import datetime, timedelta
 
 
 class PrometheusService:
-    """Service for interacting with Prometheus"""
+    """与Prometheus交互的服务"""
     
     def __init__(self):
         self.enabled = PROMETHEUS_ENABLED
         self.base_url = PROMETHEUS_URL
     
     def is_available(self):
-        """Check if Prometheus service is available"""
+        """检查Prometheus服务是否可用"""
         if not self.enabled:
             return False
         
@@ -30,7 +30,7 @@ class PrometheusService:
         Execute a PromQL query
         
         Args:
-            query_string: PromQL query string
+            query_string: PromQL查询字符串
         
         Returns:
             tuple: (success, result_data)
@@ -59,10 +59,10 @@ class PrometheusService:
         Execute a PromQL range query
         
         Args:
-            query_string: PromQL query string
-            start_time: Start time (datetime or timestamp)
-            end_time: End time (datetime or timestamp)
-            step: Query resolution step
+            query_string: PromQL查询字符串
+            start_time: 开始时间 (datetime or timestamp)
+            end_time: 结束时间 (datetime or timestamp)
+            step: 查询分辨率步长
         
         Returns:
             tuple: (success, result_data)
@@ -101,7 +101,7 @@ class PrometheusService:
         Get active alerts from Prometheus
         
         Returns:
-            tuple: (success, alerts_list)
+            tuple: (成功状态, 告警列表)
         """
         if not self.is_available():
             return False, []
@@ -125,12 +125,12 @@ class PrometheusService:
         Check if a metric exceeds a threshold
         
         Args:
-            metric_name: Prometheus metric name
-            threshold: Threshold value
-            comparison: Comparison operator (gt, lt, gte, lte, eq)
+            metric_name: Prometheus指标名称
+            threshold: 阈值
+            comparison: 比较运算符 (gt, lt, gte, lte, eq)
         
         Returns:
-            dict: Anomaly detection result
+            dict: 异常检测结果
         """
         success, data = self.query(metric_name)
         
@@ -194,7 +194,7 @@ class PrometheusService:
 
 
 class GrafanaService:
-    """Service for interacting with Grafana"""
+    """与Grafana交互的服务"""
     
     def __init__(self):
         self.enabled = GRAFANA_ENABLED
@@ -206,7 +206,7 @@ class GrafanaService:
         }
     
     def is_available(self):
-        """Check if Grafana service is available"""
+        """检查Grafana服务是否可用"""
         if not self.enabled or not self.api_key:
             return False
         
@@ -225,7 +225,7 @@ class GrafanaService:
         Get list of Grafana dashboards
         
         Returns:
-            tuple: (success, dashboards_list)
+            tuple: (成功状态, 仪表板列表)
         """
         if not self.is_available():
             return False, []
@@ -250,10 +250,10 @@ class GrafanaService:
         Get a specific dashboard by UID
         
         Args:
-            dashboard_uid: Dashboard UID
+            dashboard_uid: 仪表板UID
         
         Returns:
-            tuple: (success, dashboard_data)
+            tuple: (成功状态, 仪表板数据)
         """
         if not self.is_available():
             return False, None
@@ -278,7 +278,7 @@ class GrafanaService:
         Get active alerts from Grafana
         
         Returns:
-            tuple: (success, alerts_list)
+            tuple: (成功状态, 告警列表)
         """
         if not self.is_available():
             return False, []
@@ -303,13 +303,13 @@ class GrafanaService:
         Create an annotation in Grafana
         
         Args:
-            dashboard_id: Dashboard ID
-            time: Timestamp (in milliseconds)
-            text: Annotation text
-            tags: List of tags
+            dashboard_id: 仪表板ID
+            time: 时间戳 (in milliseconds)
+            text: 注释文本
+            tags: 标签列表
         
         Returns:
-            tuple: (success, annotation_id)
+            tuple: (成功状态, 注释ID)
         """
         if not self.is_available():
             return False, None

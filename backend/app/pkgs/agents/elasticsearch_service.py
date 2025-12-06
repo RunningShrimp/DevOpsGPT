@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 
 class ElasticsearchService:
-    """Service for interacting with Elasticsearch"""
+    """与Elasticsearch交互的服务"""
     
     def __init__(self):
         self.enabled = ELASTICSEARCH_ENABLED
@@ -19,7 +19,7 @@ class ElasticsearchService:
             self._initialize_client()
     
     def _initialize_client(self):
-        """Initialize Elasticsearch client"""
+        """初始化Elasticsearch客户端"""
         try:
             auth = None
             if ELASTICSEARCH_USERNAME and ELASTICSEARCH_PASSWORD:
@@ -39,20 +39,20 @@ class ElasticsearchService:
             self.enabled = False
     
     def is_available(self):
-        """Check if Elasticsearch service is available"""
+        """检查Elasticsearch服务是否可用"""
         return self.enabled and self.client is not None
     
     def index_logs(self, service_name, logs, requirement_id=None):
         """
         Index logs to Elasticsearch
         
-        Args:
-            service_name: Name of the service
-            logs: List of log entries (dict with timestamp, level, message, etc.)
-            requirement_id: Optional requirement ID for tracking
+        参数：
+            service_name: 服务名称
+            logs: 日志条目列表 (dict with timestamp, level, message, etc.)
+            requirement_id: 可选的需求ID for tracking
         
-        Returns:
-            tuple: (success, message)
+        返回值：
+            tuple: (成功状态, 消息)
         """
         if not self.is_available():
             return False, "Elasticsearch is not enabled or not available"
@@ -80,14 +80,14 @@ class ElasticsearchService:
         """
         Search logs in Elasticsearch
         
-        Args:
-            service_name: Name of the service
-            query: Optional search query string
-            time_range_hours: Hours to look back
-            size: Maximum number of results
+        参数：
+            service_name: 服务名称
+            query: 可选的搜索查询字符串
+            time_range_hours: 回溯的小时数
+            size: 最大结果数
         
-        Returns:
-            tuple: (logs, total_count)
+        返回值：
+            tuple: (日志列表, 总数)
         """
         if not self.is_available():
             return [], 0
@@ -135,12 +135,12 @@ class ElasticsearchService:
         """
         Analyze logs to find error patterns
         
-        Args:
-            service_name: Name of the service
-            time_range_hours: Hours to look back
+        参数：
+            service_name: 服务名称
+            time_range_hours: 回溯的小时数
         
-        Returns:
-            dict: Analysis results with error patterns
+        返回值：
+            dict: 包含错误模式的分析结果
         """
         if not self.is_available():
             return {
@@ -219,12 +219,12 @@ class ElasticsearchService:
         """
         Get log statistics by level
         
-        Args:
-            service_name: Name of the service
-            time_range_hours: Hours to look back
+        参数：
+            service_name: 服务名称
+            time_range_hours: 回溯的小时数
         
-        Returns:
-            dict: Statistics by log level
+        返回值：
+            dict: 按日志级别的统计信息
         """
         if not self.is_available():
             return {}

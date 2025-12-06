@@ -1,4 +1,4 @@
 """
-Agents package for DevOpsGPT
-Contains AI-powered agents for log analysis, monitoring, and ticket management
+DevOpsGPT的智能代理包
+包含日志分析、监控和工单管理的AI驱动代理
 """

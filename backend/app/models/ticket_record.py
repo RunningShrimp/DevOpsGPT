@@ -3,32 +3,32 @@ import json
 
 
 class TicketRecord(db.Model):
-    """Model for storing intelligent ticket system records"""
+    """智能工单系统记录存储模型"""
     id = db.Column(db.Integer, primary_key=True)
     requirement_id = db.Column(db.Integer, nullable=False)
     service_name = db.Column(db.String(200))
     
-    # Ticket information
-    ticket_key = db.Column(db.String(100))  # Jira ticket key (e.g., DEVOPS-123)
+    # 工单信息
+    ticket_key = db.Column(db.String(100))  # Jira工单键值（例如：DEVOPS-123）
     ticket_url = db.Column(db.String(500))
     ticket_title = db.Column(db.String(500))
     ticket_description = db.Column(db.Text)
-    ticket_type = db.Column(db.String(50))  # bug, task, story, etc.
-    priority = db.Column(db.String(50))  # low, medium, high, critical
-    status = db.Column(db.String(50))  # open, in_progress, resolved, closed
+    ticket_type = db.Column(db.String(50))  # bug、task、story等
+    priority = db.Column(db.String(50))  # low、medium、high、critical
+    status = db.Column(db.String(50))  # open、in_progress、resolved、closed
     
-    # Source information
-    source_type = db.Column(db.String(100))  # log_analysis, monitoring_alert, manual
-    source_id = db.Column(db.Integer)  # ID of the source record (log_analysis_id or alert_id)
-    fault_summary = db.Column(db.Text)  # Summary of the fault that triggered ticket creation
+    # 来源信息
+    source_type = db.Column(db.String(100))  # log_analysis、monitoring_alert、manual
+    source_id = db.Column(db.Integer)  # 来源记录的ID（log_analysis_id或alert_id）
+    fault_summary = db.Column(db.Text)  # 触发工单创建的故障摘要
     
-    # AI recommendations
-    recommended_solutions = db.Column(db.Text)  # JSON array of solutions based on historical data
-    similar_tickets = db.Column(db.Text)  # JSON array of similar historical tickets
-    auto_assigned_to = db.Column(db.String(200))  # Auto-assigned user
+    # AI推荐
+    recommended_solutions = db.Column(db.Text)  # 基于历史数据的解决方案JSON数组
+    similar_tickets = db.Column(db.Text)  # 相似历史工单JSON数组
+    auto_assigned_to = db.Column(db.String(200))  # 自动分配的用户
     
-    # Tracking
-    resolution_time = db.Column(db.Float)  # Time to resolve in hours
+    # 跟踪
+    resolution_time = db.Column(db.Float)  # 解决时间（小时）
     
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -39,7 +39,7 @@ class TicketRecord(db.Model):
                      ticket_description, ticket_type='bug', priority='medium', status='open',
                      source_type='manual', source_id=None, fault_summary=None,
                      recommended_solutions=None, similar_tickets=None, auto_assigned_to=None):
-        """Create a new ticket record"""
+        """创建新的工单记录"""
         solutions_json = json.dumps(recommended_solutions) if recommended_solutions else None
         similar_json = json.dumps(similar_tickets) if similar_tickets else None
         
@@ -66,7 +66,7 @@ class TicketRecord(db.Model):
 
     @staticmethod
     def get_tickets_by_requirement(requirement_id, status=None, limit=20):
-        """Get tickets by requirement ID, optionally filtered by status"""
+        """根据需求ID获取工单，可选按状态过滤"""
         query = TicketRecord.query.filter_by(requirement_id=requirement_id)
         if status:
             query = query.filter_by(status=status)
@@ -75,20 +75,20 @@ class TicketRecord(db.Model):
 
     @staticmethod
     def get_ticket_by_key(ticket_key):
-        """Get ticket by Jira ticket key"""
+        """根据Jira工单键值获取工单"""
         ticket = TicketRecord.query.filter_by(ticket_key=ticket_key).first()
         return ticket.to_dict() if ticket else None
 
     @staticmethod
     def update_ticket_status(ticket_id, status, resolved_at=None):
-        """Update ticket status"""
+        """更新工单状态"""
         ticket = TicketRecord.query.get(ticket_id)
         if ticket:
             ticket.status = status
             if resolved_at:
                 ticket.resolved_at = resolved_at
                 if ticket.created_at:
-                    # Calculate resolution time in hours
+                    # 计算解决时间（小时）
                     time_diff = resolved_at - ticket.created_at
                     ticket.resolution_time = time_diff.total_seconds() / 3600.0
             db.session.commit()
@@ -97,7 +97,7 @@ class TicketRecord(db.Model):
 
     @staticmethod
     def get_historical_tickets(service_name=None, limit=50):
-        """Get historical tickets for pattern analysis"""
+        """获取历史工单用于模式分析"""
         query = TicketRecord.query.filter(TicketRecord.status.in_(['resolved', 'closed']))
         if service_name:
             query = query.filter_by(service_name=service_name)
@@ -105,7 +105,7 @@ class TicketRecord(db.Model):
         return [ticket.to_dict() for ticket in tickets]
 
     def to_dict(self):
-        """Convert ticket to dictionary"""
+        """将工单转换为字典"""
         return {
             'id': self.id,
             'requirement_id': self.requirement_id,

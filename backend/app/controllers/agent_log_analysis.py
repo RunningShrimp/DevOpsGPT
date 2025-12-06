@@ -1,5 +1,5 @@
 """
-Log Analysis Agent API Controller
+日志分析Agent API控制器
 """
 from flask import request, Blueprint
 from app.pkgs.tools import storage
@@ -17,7 +17,7 @@ bp = Blueprint('agent_log_analysis', __name__, url_prefix='/agent/log_analysis')
 @bp.route('/analyze', methods=['POST'])
 @json_response
 def analyze_logs():
-    """Analyze logs for a service"""
+    """分析服务日志"""
     _ = getI18n("controllers")
     
     service_name = request.json.get('service_name')
@@ -33,7 +33,7 @@ def analyze_logs():
         if not req:
             raise Exception(_("Requirement not found"))
     
-    # Perform log analysis
+    # 执行日志分析
     agent = LogAnalysisAgent()
     start_time = time.time()
     
@@ -45,7 +45,7 @@ def analyze_logs():
     
     analysis_duration = time.time() - start_time
     
-    # Save analysis record
+    # 保存分析记录
     record = LogAnalysisRecord.create_record(
         requirement_id=requirement_id or 0,
         service_name=service_name,
@@ -68,7 +68,7 @@ def analyze_logs():
 @bp.route('/records', methods=['GET'])
 @json_response
 def get_records():
-    """Get log analysis records"""
+    """获取日志分析记录"""
     requirement_id = request.args.get('requirement_id', type=int)
     limit = request.args.get('limit', 10, type=int)
     
@@ -91,7 +91,7 @@ def get_records():
 @bp.route('/latest', methods=['GET'])
 @json_response
 def get_latest_record():
-    """Get latest log analysis record for a service"""
+    """获取服务的最新日志分析记录"""
     requirement_id = request.args.get('requirement_id', type=int)
     service_name = request.args.get('service_name')
     
@@ -114,7 +114,7 @@ def get_latest_record():
 @bp.route('/search_logs', methods=['POST'])
 @json_response
 def search_logs():
-    """Search logs in Elasticsearch"""
+    """在Elasticsearch中搜索日志"""
     _ = getI18n("controllers")
     
     service_name = request.json.get('service_name')
@@ -142,7 +142,7 @@ def search_logs():
 @bp.route('/index_logs', methods=['POST'])
 @json_response
 def index_logs():
-    """Index logs to Elasticsearch"""
+    """将日志索引到Elasticsearch"""
     _ = getI18n("controllers")
     
     service_name = request.json.get('service_name')
@@ -174,7 +174,7 @@ def index_logs():
 @bp.route('/analyze_entry', methods=['POST'])
 @json_response
 def analyze_log_entry():
-    """Analyze a specific log entry using AI"""
+    """使用AI分析特定日志条目"""
     _ = getI18n("controllers")
     
     log_entry = request.json.get('log_entry')

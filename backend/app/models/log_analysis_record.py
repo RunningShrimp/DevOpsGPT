@@ -3,21 +3,21 @@ import json
 
 
 class LogAnalysisRecord(db.Model):
-    """Model for storing log analysis records"""
+    """日志分析记录存储模型"""
     id = db.Column(db.Integer, primary_key=True)
     requirement_id = db.Column(db.Integer, nullable=False)
     service_name = db.Column(db.String(200))
-    log_source = db.Column(db.String(500))  # Source of the logs (file path, elasticsearch index, etc.)
+    log_source = db.Column(db.String(500))  # 日志来源（文件路径、elasticsearch索引等）
     
-    # Analysis results
+    # 分析结果
     anomaly_detected = db.Column(db.Boolean, default=False)
-    anomaly_patterns = db.Column(db.Text)  # JSON array of detected patterns
-    fault_report = db.Column(db.Text)  # Generated fault report
-    severity = db.Column(db.String(50))  # low, medium, high, critical
+    anomaly_patterns = db.Column(db.Text)  # 检测到的异常模式JSON数组
+    fault_report = db.Column(db.Text)  # 生成的故障报告
+    severity = db.Column(db.String(50))  # 严重性：低、中、高、严重
     
-    # Metadata
+    # 元数据
     analyzed_log_count = db.Column(db.Integer, default=0)
-    analysis_duration = db.Column(db.Float)  # in seconds
+    analysis_duration = db.Column(db.Float)  # 分析耗时（秒）
     
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -26,7 +26,7 @@ class LogAnalysisRecord(db.Model):
     def create_record(requirement_id, service_name, log_source, anomaly_detected=False, 
                      anomaly_patterns=None, fault_report=None, severity='low',
                      analyzed_log_count=0, analysis_duration=0.0):
-        """Create a new log analysis record"""
+        """创建新的日志分析记录"""
         patterns_json = json.dumps(anomaly_patterns) if anomaly_patterns else None
         
         record = LogAnalysisRecord(
@@ -46,7 +46,7 @@ class LogAnalysisRecord(db.Model):
 
     @staticmethod
     def get_records_by_requirement(requirement_id, limit=10):
-        """Get log analysis records by requirement ID"""
+        """根据需求ID获取日志分析记录"""
         records = LogAnalysisRecord.query.filter_by(requirement_id=requirement_id)\
             .order_by(LogAnalysisRecord.created_at.desc())\
             .limit(limit).all()
@@ -54,7 +54,7 @@ class LogAnalysisRecord(db.Model):
 
     @staticmethod
     def get_latest_record(requirement_id, service_name):
-        """Get the latest log analysis record for a service"""
+        """获取服务的最新日志分析记录"""
         record = LogAnalysisRecord.query.filter_by(
             requirement_id=requirement_id,
             service_name=service_name
@@ -62,7 +62,7 @@ class LogAnalysisRecord(db.Model):
         return record.to_dict() if record else None
 
     def to_dict(self):
-        """Convert record to dictionary"""
+        """将记录转换为字典"""
         return {
             'id': self.id,
             'requirement_id': self.requirement_id,

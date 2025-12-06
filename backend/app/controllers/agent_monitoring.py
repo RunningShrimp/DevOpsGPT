@@ -16,7 +16,7 @@ bp = Blueprint('agent_monitoring', __name__, url_prefix='/agent/monitoring')
 @bp.route('/check_metrics', methods=['POST'])
 @json_response
 def check_metrics():
-    """Check service metrics and detect anomalies"""
+    """检查服务指标并检测异常"""
     _ = getI18n("controllers")
     
     service_name = request.json.get('service_name')
@@ -63,7 +63,7 @@ def check_metrics():
 @bp.route('/analyze_alert', methods=['POST'])
 @json_response
 def analyze_alert():
-    """Analyze an alert and get AI recommendations"""
+    """分析告警并获取AI推荐"""
     _ = getI18n("controllers")
     
     alert_id = request.json.get('alert_id')
@@ -98,7 +98,7 @@ def analyze_alert():
 @bp.route('/alerts', methods=['GET'])
 @json_response
 def get_alerts():
-    """Get active alerts"""
+    """获取活动告警"""
     requirement_id = request.args.get('requirement_id', type=int)
     limit = request.args.get('limit', 20, type=int)
     
@@ -121,7 +121,7 @@ def get_alerts():
 @bp.route('/alerts/service', methods=['GET'])
 @json_response
 def get_service_alerts():
-    """Get alerts for a specific service"""
+    """获取特定服务的告警"""
     requirement_id = request.args.get('requirement_id', type=int)
     service_name = request.args.get('service_name')
     limit = request.args.get('limit', 10, type=int)
@@ -145,7 +145,7 @@ def get_service_alerts():
 @bp.route('/alerts/resolve', methods=['POST'])
 @json_response
 def resolve_alert():
-    """Mark an alert as resolved"""
+    """将告警标记为已解决"""
     _ = getI18n("controllers")
     
     alert_id = request.json.get('alert_id')
@@ -167,7 +167,7 @@ def resolve_alert():
 @bp.route('/prometheus/alerts', methods=['GET'])
 @json_response
 def get_prometheus_alerts():
-    """Get alerts from Prometheus"""
+    """从Prometheus获取告警"""
     agent = MonitoringAlertAgent()
     success, alerts = agent.get_prometheus_alerts()
     
@@ -180,7 +180,7 @@ def get_prometheus_alerts():
 @bp.route('/grafana/alerts', methods=['GET'])
 @json_response
 def get_grafana_alerts():
-    """Get alerts from Grafana"""
+    """从Grafana获取告警"""
     agent = MonitoringAlertAgent()
     success, alerts = agent.get_grafana_alerts()
     

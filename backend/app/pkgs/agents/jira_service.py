@@ -8,7 +8,7 @@ from config import (JIRA_ENABLED, JIRA_URL, JIRA_USERNAME,
 
 
 class JiraService:
-    """Service for interacting with Jira"""
+    """与Jira交互的服务"""
     
     def __init__(self):
         self.enabled = JIRA_ENABLED
@@ -22,7 +22,7 @@ class JiraService:
             self._initialize_client()
     
     def _initialize_client(self):
-        """Initialize Jira client"""
+        """初始化Jira客户端"""
         try:
             self.client = JIRA(
                 server=self.url,
@@ -33,7 +33,7 @@ class JiraService:
             self.enabled = False
     
     def is_available(self):
-        """Check if Jira service is available"""
+        """检查Jira服务是否可用"""
         return self.enabled and self.client is not None
     
     def create_ticket(self, summary, description, issue_type='Bug', priority='Medium', 
@@ -42,15 +42,15 @@ class JiraService:
         Create a new Jira ticket
         
         Args:
-            summary: Ticket summary/title
-            description: Ticket description
-            issue_type: Type of issue (Bug, Task, Story, etc.)
-            priority: Priority level (Highest, High, Medium, Low, Lowest)
-            labels: List of labels
-            assignee: Username to assign the ticket to
+            summary: 工单摘要/标题
+            description: 工单描述
+            issue_type: 问题类型 (Bug, Task, Story, etc.)
+            priority: 优先级 (Highest, High, Medium, Low, Lowest)
+            labels: 标签列表
+            assignee: 分配给的用户名 the ticket to
         
         Returns:
-            tuple: (success, ticket_key, ticket_url, message)
+            tuple: (成功状态, 工单键值, 工单URL, 消息)
         """
         if not self.is_available():
             return False, None, None, "Jira is not enabled or not available"
@@ -86,10 +86,10 @@ class JiraService:
         Get ticket details by key
         
         Args:
-            ticket_key: Jira ticket key (e.g., DEVOPS-123)
+            ticket_key: Jira工单键值 (e.g., DEVOPS-123)
         
         Returns:
-            tuple: (success, ticket_data)
+            tuple: (成功状态, 工单数据)
         """
         if not self.is_available():
             return False, None
@@ -120,11 +120,11 @@ class JiraService:
         Update ticket status
         
         Args:
-            ticket_key: Jira ticket key
-            status: New status (e.g., 'In Progress', 'Done', 'Closed')
+            ticket_key: Jira工单键值
+            status: 新状态 (e.g., 'In Progress', 'Done', 'Closed')
         
         Returns:
-            tuple: (success, message)
+            tuple: (成功状态, 消息)
         """
         if not self.is_available():
             return False, "Jira is not enabled or not available"
@@ -156,11 +156,11 @@ class JiraService:
         Add a comment to a ticket
         
         Args:
-            ticket_key: Jira ticket key
-            comment: Comment text
+            ticket_key: Jira工单键值
+            comment: 评论文本
         
         Returns:
-            tuple: (success, message)
+            tuple: (成功状态, 消息)
         """
         if not self.is_available():
             return False, "Jira is not enabled or not available"
@@ -178,11 +178,11 @@ class JiraService:
         Search tickets using JQL
         
         Args:
-            jql_query: JQL query string
-            max_results: Maximum number of results
+            jql_query: JQL查询字符串
+            max_results: 最大结果数
         
         Returns:
-            tuple: (success, tickets_list)
+            tuple: (成功状态, 工单列表)
         """
         if not self.is_available():
             return False, []
@@ -214,7 +214,7 @@ class JiraService:
         
         Args:
             summary: Ticket summary to search for
-            description: Ticket description to search for
+            description: 工单描述 to search for
             max_results: Maximum number of similar tickets to return
         
         Returns:
@@ -240,11 +240,11 @@ class JiraService:
         Assign a ticket to a user
         
         Args:
-            ticket_key: Jira ticket key
-            assignee: Username to assign to
+            ticket_key: Jira工单键值
+            assignee: 分配给的用户名 to
         
         Returns:
-            tuple: (success, message)
+            tuple: (成功状态, 消息)
         """
         if not self.is_available():
             return False, "Jira is not enabled or not available"

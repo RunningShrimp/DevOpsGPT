@@ -7,7 +7,7 @@ import json
 
 
 class LogAnalysisAgent:
-    """Agent for analyzing logs and generating fault reports"""
+    """用于分析日志和生成故障报告的代理"""
     
     def __init__(self):
         self.es_service = ElasticsearchService()
@@ -58,11 +58,11 @@ class LogAnalysisAgent:
         Determine severity based on error count and log statistics
         
         Args:
-            error_count: Number of errors
-            log_stats: Log statistics by level
+            error_count: 错误数量
+            log_stats: 按级别的日志统计
         
         Returns:
-            str: Severity level (low, medium, high, critical)
+            str: 严重性级别 (low, medium, high, critical)
         """
         critical_count = log_stats.get('CRITICAL', 0) + log_stats.get('FATAL', 0)
         
@@ -81,11 +81,11 @@ class LogAnalysisAgent:
         
         Args:
             service_name: Name of the service
-            patterns: List of detected error patterns
+            patterns: 检测到的错误模式列表
             log_stats: Log statistics
         
         Returns:
-            str: Generated fault report
+            str: 生成的故障报告
         """
         if not patterns:
             return f"Service {service_name} has errors but no specific patterns detected."
@@ -129,11 +129,11 @@ Keep the report concise and actionable."""
         
         Args:
             service_name: Name of the service
-            patterns: List of detected error patterns
+            patterns: 检测到的错误模式列表
             log_stats: Log statistics
         
         Returns:
-            str: Generated fault report
+            str: 生成的故障报告
         """
         report = f"# Fault Report for {service_name}\n\n"
         report += f"## Summary\n"
@@ -160,7 +160,7 @@ Keep the report concise and actionable."""
         Analyze a specific log entry using AI
         
         Args:
-            log_entry: Log entry to analyze
+            log_entry: 要分析的日志条目
         
         Returns:
             dict: Analysis result
