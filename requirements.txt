@@ -19,3 +19,9 @@ flask-limiter
 boto3
 # yum install mysql-devel gcc gcc-devel python-devel
 # mysqlclient
+
+# Dependencies for Log Analysis, Monitoring, and Ticket System Agents
+elasticsearch>=8.0.0
+prometheus-client>=0.17.0
+jira>=3.5.0
+requests>=2.31.0

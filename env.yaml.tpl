@@ -102,3 +102,25 @@ USERS: |
   {
     "demo_user": "123456"
   }
+
+# Log Analysis Agent Configuration
+ELASTICSEARCH_ENABLED: false
+ELASTICSEARCH_HOST: "localhost"
+ELASTICSEARCH_PORT: 9200
+ELASTICSEARCH_USERNAME: ""
+ELASTICSEARCH_PASSWORD: ""
+ELASTICSEARCH_INDEX_PREFIX: "devopsgpt-logs"
+
+# Monitoring Alert Agent Configuration
+PROMETHEUS_ENABLED: false
+PROMETHEUS_URL: "http://localhost:9090"
+GRAFANA_ENABLED: false
+GRAFANA_URL: "http://localhost:3000"
+GRAFANA_API_KEY: ""
+
+# Intelligent Ticket System Configuration
+JIRA_ENABLED: false
+JIRA_URL: "https://your-domain.atlassian.net"
+JIRA_USERNAME: ""
+JIRA_API_TOKEN: ""
+JIRA_PROJECT_KEY: ""

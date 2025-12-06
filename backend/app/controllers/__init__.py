@@ -12,6 +12,9 @@ from .tenant_pro import bp as tenant_bp
 from .pay_pro import bp as pay_bp
 from .plugine_api import bp as plugine_bp
 from .tencent_pro import bp as tencent_bp
+from .agent_log_analysis import bp as agent_log_analysis_bp
+from .agent_monitoring import bp as agent_monitoring_bp
+from .agent_ticket import bp as agent_ticket_bp
 
 def register_controllers(app):
     app.register_blueprint(user_bp)
@@ -28,3 +31,7 @@ def register_controllers(app):
     app.register_blueprint(pay_bp)
     app.register_blueprint(plugine_bp)
     app.register_blueprint(tencent_bp)
+    # Register new agent controllers
+    app.register_blueprint(agent_log_analysis_bp)
+    app.register_blueprint(agent_monitoring_bp)
+    app.register_blueprint(agent_ticket_bp)

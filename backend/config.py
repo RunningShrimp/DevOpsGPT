@@ -99,6 +99,28 @@ try:
     ALIPAY_ID = read_config("ALIPAY_ID")
     ALIPAY_PRIVATE_KEY = read_config("ALIPAY_PRIVATE_KEY")
     ALIPAY_PUBLIC_KEY = read_config("ALIPAY_PUBLIC_KEY")
+
+    # Log Analysis Agent Configuration
+    ELASTICSEARCH_ENABLED = read_config("ELASTICSEARCH_ENABLED")
+    ELASTICSEARCH_HOST = read_config("ELASTICSEARCH_HOST")
+    ELASTICSEARCH_PORT = read_config("ELASTICSEARCH_PORT")
+    ELASTICSEARCH_USERNAME = read_config("ELASTICSEARCH_USERNAME")
+    ELASTICSEARCH_PASSWORD = read_config("ELASTICSEARCH_PASSWORD")
+    ELASTICSEARCH_INDEX_PREFIX = read_config("ELASTICSEARCH_INDEX_PREFIX")
+
+    # Monitoring Alert Agent Configuration
+    PROMETHEUS_ENABLED = read_config("PROMETHEUS_ENABLED")
+    PROMETHEUS_URL = read_config("PROMETHEUS_URL")
+    GRAFANA_ENABLED = read_config("GRAFANA_ENABLED")
+    GRAFANA_URL = read_config("GRAFANA_URL")
+    GRAFANA_API_KEY = read_config("GRAFANA_API_KEY")
+
+    # Intelligent Ticket System Configuration
+    JIRA_ENABLED = read_config("JIRA_ENABLED")
+    JIRA_URL = read_config("JIRA_URL")
+    JIRA_USERNAME = read_config("JIRA_USERNAME")
+    JIRA_API_TOKEN = read_config("JIRA_API_TOKEN")
+    JIRA_PROJECT_KEY = read_config("JIRA_PROJECT_KEY")
 except Exception as e:
     print(f"\033[91mError: Failed to read the configuration, please copy a new env.yaml from env.yaml.tpl and reconfigure it according to the documentation. Error in env.yaml: {str(e)}. 读取配置错误，请重新从 env.yaml.tpl 复制一个 env.yaml 进行配置后重启程序。 \033[0m")
     input("Press Enter to exit...")
