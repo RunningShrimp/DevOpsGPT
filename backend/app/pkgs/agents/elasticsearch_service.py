@@ -171,12 +171,13 @@ class ElasticsearchService:
                 'size': 0,
                 'aggs': {
                     'error_count': {
-                        'value_count': {'field': 'message.keyword'}
+                        'value_count': {'field': '_id'}
                     },
                     'top_errors': {
                         'terms': {
                             'field': 'message.keyword',
-                            'size': 10
+                            'size': 10,
+                            'missing': '__no_message__'
                         }
                     }
                 }

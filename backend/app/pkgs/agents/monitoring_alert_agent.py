@@ -2,7 +2,7 @@
 AI-powered monitoring alert analysis and solution recommendation
 """
 from app.pkgs.agents.monitoring_service import PrometheusService, GrafanaService
-from app.pkgs.tools.llm import llm
+from app.pkgs.tools.llm import chatCompletion
 import json
 
 
@@ -108,7 +108,15 @@ Provide:
 Be concise and actionable."""
         
         try:
-            response = llm(prompt)
+            response, total_tokens, success = chatCompletion(prompt)
+            
+            if not success:
+                print(f"LLM analysis failed for alert")
+                return {
+                    'success': False,
+                    'error': 'LLM analysis failed',
+                    'analysis': self._generate_template_solution(alert_data)
+                }
             
             # Extract priority from response (simple heuristic)
             priority = 'medium'

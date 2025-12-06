@@ -2,7 +2,7 @@
 Intelligent ticket system agent with historical data analysis
 """
 from app.pkgs.agents.jira_service import JiraService
-from app.pkgs.tools.llm import llm
+from app.pkgs.tools.llm import chatCompletion
 from app.models.ticket_record import TicketRecord
 import json
 
@@ -149,7 +149,14 @@ TITLE: <title here>
 DESCRIPTION: <description here>"""
         
         try:
-            response = llm(prompt)
+            response, total_tokens, success = chatCompletion(prompt)
+            
+            if not success:
+                print("LLM ticket generation failed, using fallback")
+                return {
+                    'title': f"Issue in {service_name}",
+                    'description': context
+                }
             
             # Parse response
             title = "Unknown Issue"
@@ -240,7 +247,11 @@ Current Issue:
 Provide 3-5 prioritized, actionable recommendations."""
         
         try:
-            response = llm(prompt)
+            response, total_tokens, success = chatCompletion(prompt)
+            if not success:
+                print("LLM recommendation generation failed, using historical solutions")
+                return historical_solutions[:5]
+            
             # Extract numbered items
             solutions = []
             for line in response.split('\n'):

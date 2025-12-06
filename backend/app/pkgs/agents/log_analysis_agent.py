@@ -2,7 +2,7 @@
 AI-powered log analysis and fault report generation
 """
 from app.pkgs.agents.elasticsearch_service import ElasticsearchService
-from app.pkgs.tools.llm import llm
+from app.pkgs.tools.llm import chatCompletion
 import json
 
 
@@ -112,8 +112,12 @@ Please provide:
 Keep the report concise and actionable."""
         
         try:
-            response = llm(prompt)
-            return response
+            response, total_tokens, success = chatCompletion(prompt)
+            if success:
+                return response
+            else:
+                # Fallback to template-based report
+                return self._generate_template_report(service_name, patterns, log_stats)
         except Exception as e:
             print(f"Error generating fault report with AI: {str(e)}")
             # Fallback to template-based report
@@ -173,11 +177,17 @@ Provide:
 4. Suggested fix"""
         
         try:
-            response = llm(prompt)
-            return {
-                'success': True,
-                'analysis': response
-            }
+            response, total_tokens, success = chatCompletion(prompt)
+            if success:
+                return {
+                    'success': True,
+                    'analysis': response
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': 'LLM analysis failed'
+                }
         except Exception as e:
             return {
                 'success': False,
