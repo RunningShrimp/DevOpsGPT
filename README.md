@@ -26,6 +26,9 @@ Welcome to the AI Driven Software Development Automation Solution, abbreviated a
 - Shortened development cycles: The automated software development process significantly reduces delivery time, accelerating software deployment and iterations.
 - Reduced communication costs: By accurately understanding user requirements, DevOpsGPT minimizes the risk of communication errors and misunderstandings, enhancing collaboration efficiency between development and business teams.
 - High-quality deliverables: DevOpsGPT generates code and performs validation, ensuring the quality and reliability of the delivered software.
+- **[NEW] Log Analysis Agent**: Automatically analyze application logs using Elasticsearch, identify anomaly patterns, and generate intelligent fault reports with AI-powered recommendations.
+- **[NEW] Monitoring Alert Agent**: Integrate with Prometheus/Grafana to automatically detect metric anomalies, provide severity classification, and recommend solutions based on AI analysis.
+- **[NEW] Intelligent Ticket System**: Automatically create Jira tickets from fault logs and monitoring alerts, with AI-powered solution recommendations based on historical data and similar tickets detection.
 - [Enterprise Edition] Existing project analysis: Through AI, automatic analysis of existing project information, accurate decomposition and development of required tasks on the basis of existing projects.
 - [Enterprise Edition] Professional model selection: Support language model services stronger than GPT in the professional field to better complete requirements development tasks, and support private deployment.
 - [Enterprise Edition] Support more DevOps platforms: can connect with more DevOps platforms to achieve the development and deployment of the whole process.
@@ -76,6 +79,30 @@ Vists [kuafuai.net](https://www.kuafuai.net)
     6. Complete the requirement development: complete the requirement development according to the guidance of the page, and view the generated code in the `./workspace ` directory
 
 **For detailed documentation and configuration parameters, please refer to the [documentation link](docs/DOCUMENT.md).**
+
+## AI-Powered Agent Modules
+
+DevOpsGPT now includes three intelligent agent modules to enhance DevOps automation:
+
+### 1. Log Analysis Agent
+- Integrates with Elasticsearch for automatic log analysis
+- Identifies anomaly patterns using AI
+- Generates comprehensive fault reports
+- Classifies severity levels automatically
+
+### 2. Monitoring Alert Agent
+- Connects to Prometheus/Grafana for real-time monitoring
+- Detects metric anomalies (CPU, memory, error rates, etc.)
+- Provides AI-powered solution recommendations
+- Tracks and manages alerts with severity classification
+
+### 3. Intelligent Ticket System
+- Automatically creates Jira tickets from logs and alerts
+- Analyzes historical ticket data for pattern recognition
+- Recommends solutions based on similar past issues
+- Auto-assigns tickets based on historical data
+
+**For detailed agent documentation, see [Agent Modules Documentation](docs/AGENT_MODULES.md) or [中文文档](docs/AGENT_MODULES_CN.md).**
 
 
 ## Limitations
