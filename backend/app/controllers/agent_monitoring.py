@@ -1,6 +1,7 @@
 """
 Monitoring Alert Agent API Controller
 """
+import json
 from flask import request, Blueprint
 from app.pkgs.tools import storage
 from app.controllers.common import json_response
@@ -84,7 +85,6 @@ def analyze_alert():
     
     # Update alert with recommendations
     if analysis.get('success'):
-        import json
         alert_data.recommended_solutions = json.dumps(analysis.get('recommended_solutions', []))
         from app.extensions import db
         db.session.commit()

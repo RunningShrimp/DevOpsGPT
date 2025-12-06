@@ -21,7 +21,7 @@ boto3
 # mysqlclient
 
 # Dependencies for Log Analysis, Monitoring, and Ticket System Agents
-elasticsearch>=8.0.0
-prometheus-client>=0.17.0
-jira>=3.5.0
+elasticsearch>=8.0.0,<9.0.0
+prometheus-client>=0.17.0,<1.0.0
+jira>=3.5.0,<4.0.0
 requests>=2.31.0

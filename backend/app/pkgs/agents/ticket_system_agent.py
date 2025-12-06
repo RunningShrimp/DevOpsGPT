@@ -1,6 +1,7 @@
 """
 Intelligent ticket system agent with historical data analysis
 """
+import time
 from app.pkgs.agents.jira_service import JiraService
 from app.pkgs.tools.llm import chatCompletion
 from app.models.ticket_record import TicketRecord
@@ -61,7 +62,7 @@ class TicketSystemAgent:
                 }
         else:
             # Create a mock ticket if Jira is not available
-            ticket_key = f"MOCK-{requirement_id}-{source_id or 0}"
+            ticket_key = f"MOCK-{requirement_id}-{source_id or 0}-{int(time.time())}"
             ticket_url = f"http://localhost/tickets/{ticket_key}"
             message = "Jira not available, created mock ticket"
         
